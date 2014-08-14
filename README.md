@@ -22,3 +22,21 @@ modify EntityFramework DbContext to FileContext
         //public DbSet<ContentItem> ContentItems { get; set; }
     }
 ```
+
+
+##StoreStrategy
+
+```C#
+    //public class ContentItemContext : DbContext
+    public class ContentItemContext : FileContext
+    {
+        public ContentItemContext()
+            : base(new JsonStoreStrategy()) 
+			// or DefaultStoreStrategy() => XmlStoreStrategy()
+        {
+        }
+
+        public FileSet<ContentItem> ContentItems { get; set; }
+        //public DbSet<ContentItem> ContentItems { get; set; }
+    }
+```
