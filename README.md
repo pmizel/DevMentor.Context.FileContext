@@ -1,11 +1,13 @@
 DevMentor.Context.FileContext
 =============================
 
-DbContext replace to FileContext
+modify EntityFramework DbContext to FileContext
 
-Beipiel Code: 
-1) Replace DbContext to FileContext
-2) Replace DbSet to FileSet
+##Todo: 
+  >1. Replace DbContext to FileContext
+  >2. Replace DbSet to FileSet
+
+##Code: 
 
 ```C#
     //public class ContentItemContext : DbContext
