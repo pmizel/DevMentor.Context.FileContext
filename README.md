@@ -1,6 +1,8 @@
 DevMentor.Context.FileContext
 =============================
 
+![DevMentor Logo](http://devmentor.de/templates/devmentor/images/devmentor_logo.png "DevMentor")
+
 modify EntityFramework DbContext to FileContext
 
 ##Todo: 
