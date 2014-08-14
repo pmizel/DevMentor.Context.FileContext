@@ -1,6 +1,6 @@
+using DevMentor.Context.Store;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,15 +10,37 @@ namespace DevMentor.Context
 {
     public class FileContext : IDisposable
     {
+        IStoreStrategy store;
 
-
-        public FileContext(string connectionname)
-            : this()
-        {
-
-        }
         public FileContext()
         {
+            Init();
+        }
+
+        public FileContext(string connectionname)
+        {
+            Init();
+        }
+
+        public FileContext(string connectionname, IStoreStrategy store)
+        {
+            this.store = store;
+            Init();
+        }
+
+        public FileContext(IStoreStrategy store)
+        {
+            this.store = store;
+            Init();
+        }
+
+        private void Init()
+        {
+            if (this.store == null)
+            {
+                this.store = new DefaultStoreStrategy();
+            }
+
             //Assembly asm= Assembly.GetExecutingAssembly();
             var props = this.GetType().GetProperties();
             foreach (var prop in props)
@@ -28,12 +50,13 @@ namespace DevMentor.Context
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
                     bool isInit = false;
-                    //lade
-                    string filename = GetFileName(gen_type);
+                    //load
+                    string filename = store.GetFileName(gen_type);
                     if (File.Exists(filename))
                     {
                         string contents = File.ReadAllText(filename);
-                        object o = XmlHelper.DeserializeObject(contents, prop.PropertyType);
+                        //object o = XmlHelper.DeserializeObject(contents, prop.PropertyType);
+                        object o = store.Load(contents, prop.PropertyType);
                         if (o != null)
                         {
                             prop.SetValue(this, o);
@@ -44,7 +67,7 @@ namespace DevMentor.Context
 
                     if (!isInit)
                     {
-                        //falls leer = initial
+                        //if empty = initial
                         var instance = Activator.CreateInstance(prop.PropertyType);
                         prop.SetValue(this, instance);
                     }
@@ -77,10 +100,11 @@ namespace DevMentor.Context
                 var ret_type = gen_type.GetType();
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
-                        string filename = GetFileName(gen_type);
-                        object o = prop.GetValue(this);
-                        string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
-                        File.WriteAllText(filename, contents);
+                    string filename = store.GetFileName(gen_type);
+                    object o = prop.GetValue(this);
+                    //string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
+                    string contents = store.Save(o, prop.PropertyType);
+                    File.WriteAllText(filename, contents);
                 }
             }
 
@@ -89,36 +113,9 @@ namespace DevMentor.Context
 
         public virtual int LoadChanges()
         {
-            //Assembly asm= Assembly.GetExecutingAssembly();
-            var props = this.GetType().GetProperties();
-            foreach (var prop in props)
-            {
-                var gen_type = (prop.PropertyType).GenericTypeArguments[0];
-                var ret_type = gen_type.GetType();
-                if (ret_type.IsInstanceOfType(typeof(IFileSet)))
-                    if (ret_type.IsInstanceOfType(typeof(IFileSet)))
-                    {
-                        string filename = GetFileName(gen_type);
-                        object o = prop.GetValue(this);
-                        string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
-                        File.WriteAllText(filename, contents);
-                    }
-            }
-
-            return 0;
+            return SaveChanges();
         }
 
-        string GetFileName(Type T)
-        {
-            var name = T.Name;
-            string dir = HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
-
-            if (System.Web.HttpContext.Current != null)
-            {
-                dir = Path.Combine(dir, @"App_Data\");
-            }
-            return Path.Combine(dir, name + ".xml");
-        }
 
     }
 }

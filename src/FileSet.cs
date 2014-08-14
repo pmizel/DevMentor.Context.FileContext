@@ -8,9 +8,7 @@ using System.Web;
 
 namespace DevMentor.Context
 {
-    public interface IFileSet:IQueryable, IEnumerable
-    {
-    }
+    
     public class FileSet<TEntity> : IQueryable<TEntity>, IEnumerable<TEntity>, IFileSet where TEntity : class
     {
 
@@ -63,7 +61,15 @@ namespace DevMentor.Context
 
         public TEntity Find(int id)
         {
-            return Local.FirstOrDefault(i => (int)i.GetType().GetProperty("Id").GetValue(i) == id);
+            var type=typeof(TEntity);
+            var name=type.Name;
+            var idPropInfo = type.GetProperty(type.Name + "Id");
+            if (idPropInfo == null)
+                idPropInfo = type.GetProperty("Id");
+            if (idPropInfo == null)
+                throw new ArgumentException("Type " + name + " don't have any Id name");
+
+            return Local.FirstOrDefault(i => (int)idPropInfo.GetValue(i) == id);
         }
 
         public void Add(TEntity item)
