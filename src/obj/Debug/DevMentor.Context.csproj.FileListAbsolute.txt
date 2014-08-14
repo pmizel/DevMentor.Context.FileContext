@@ -1,0 +1,5 @@
+D:\Projects\Tellus\DevMentor.Context\bin\Debug\DevMentor.Context.dll
+D:\Projects\Tellus\DevMentor.Context\bin\Debug\DevMentor.Context.pdb
+D:\Projects\Tellus\DevMentor.Context\obj\Debug\DevMentor.Context.dll
+D:\Projects\Tellus\DevMentor.Context\obj\Debug\DevMentor.Context.pdb
+D:\Projects\Tellus\DevMentor.Context\obj\Debug\DevMentor.Context.csprojResolveAssemblyReference.cache
