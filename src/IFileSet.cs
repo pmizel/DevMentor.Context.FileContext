@@ -9,5 +9,7 @@ namespace DevMentor.Context
 {
     public interface IFileSet : IQueryable, IEnumerable
     {
+        //object Add(object item);
+        //object Remove(object item);
     }
 }

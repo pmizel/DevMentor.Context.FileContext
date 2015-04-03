@@ -9,7 +9,9 @@ using System.Web;
 namespace DevMentor.Context
 {
     
-    public class FileSet<TEntity> : IQueryable<TEntity>, IEnumerable<TEntity>, IFileSet where TEntity : class
+    public class FileSet<TEntity> : 
+        System.Data.Entity.IDbSet<TEntity>,
+        IQueryable<TEntity>, IEnumerable<TEntity>, IFileSet where TEntity : class
     {
 
         public FileSet()
@@ -59,8 +61,13 @@ namespace DevMentor.Context
             get { return Local.AsQueryable().Provider; }
         }
 
-        public TEntity Find(int id)
+        public TEntity Find(params object[] ids)
         {
+            if (ids.Length != 1)
+                throw new ArgumentException("FileSet support only one id as parameter");
+
+            object id = ids[0];
+
             var type=typeof(TEntity);
             var name=type.Name;
             var idPropInfo = type.GetProperty(type.Name + "Id");
@@ -69,17 +76,40 @@ namespace DevMentor.Context
             if (idPropInfo == null)
                 throw new ArgumentException("Type " + name + " don't have any Id name");
 
-            return Local.FirstOrDefault(i => (int)idPropInfo.GetValue(i) == id);
+            return Local.FirstOrDefault(i => Comparer.Default.Compare(idPropInfo.GetValue(i),id)==0);
         }
 
-        public void Add(TEntity item)
+
+        public TEntity Add(TEntity item)
         {
             Local.Add(item);
+            return item;
         }
 
-        public void Remove(TEntity item)
+        //public object Remove(object item)
+        //{
+        //    return Remove(item as TEntity);
+        //}
+
+        public TEntity Remove(TEntity item)
         {
             Local.Remove(item);
+            return item;
+        }
+
+        public TEntity Attach(TEntity item)
+        {
+            return item;
+        }
+
+        public TEntity Create()
+        {
+            return default(TEntity);
+        }
+
+        public TDerivedEntity Create<TDerivedEntity>() where TDerivedEntity : class, TEntity
+        {
+            return default(TDerivedEntity);
         }
     }
 }

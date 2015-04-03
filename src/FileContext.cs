@@ -1,5 +1,6 @@
 using DevMentor.Context.Store;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -81,9 +82,70 @@ namespace DevMentor.Context
         {
             if (_fileEntityEntry == null)
                 _fileEntityEntry = new FileEntityEntry();
+            //TODO: //Update marker
+
+            var type = entity.GetType();
+            Type fileSetType = null;
+            IFileSet o = null;
+            var props = this.GetType().GetProperties();
+            foreach (var prop in props)
+            {
+                fileSetType = prop.PropertyType;
+                var gen_type = fileSetType.GenericTypeArguments[0];
+                var ret_type = gen_type.GetType();
+                if (gen_type == type)
+                {
+                    o = prop.GetValue(this) as IFileSet;
+                    break;
+                }
+            }
+            if (o != null)
+            {
+                var name = type.Name;
+                var idPropInfo = type.GetProperty(type.Name + "Id");
+                if (idPropInfo == null)
+                    idPropInfo = type.GetProperty("Id");
+                if (idPropInfo == null)
+                    throw new ArgumentException("Type " + name + " don't have any Id name");
+                var id=idPropInfo.GetValue(entity);
+                object itemFromSet = null;
+                foreach (var item in o)
+                {
+                    var idcmp=idPropInfo.GetValue(item);
+                    if (Comparer.Default.Compare(idcmp, id) == 0)
+                    {
+                        itemFromSet = item;
+                        break;
+                    }
+                }
+                if (itemFromSet != null)
+                {
+                    fileSetType.GetMethod("Remove").Invoke(o, new object[]{itemFromSet});
+                    fileSetType.GetMethod("Add").Invoke(o, new object[]{entity});
+                }
+            }
+
             return _fileEntityEntry;
         }
 
+
+        public FileSet<T> Set<T>()
+            where T : class
+        {
+            object o = null;
+            var props = this.GetType().GetProperties();
+            foreach (var prop in props)
+            {
+                var gen_type = (prop.PropertyType).GenericTypeArguments[0];
+                var ret_type = gen_type.GetType();
+                if (gen_type==typeof(T))
+                {
+                    o = prop.GetValue(this);
+                    break;
+                }
+            }
+            return (FileSet<T>)o;
+        }
 
         public void Dispose()
         {
