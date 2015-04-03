@@ -55,7 +55,7 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\DevMentor.Context.csproj">
+    <ProjectReference Include="..\DevMentor.Context\DevMentor.Context.csproj">
       <Project>{47d585b8-3460-41af-83ff-90322acc6b65}</Project>
       <Name>DevMentor.Context</Name>
     </ProjectReference>

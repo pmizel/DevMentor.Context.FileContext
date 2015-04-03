@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context", "src\DevMentor.Context.csproj", "{47D585B8-3460-41AF-83FF-90322ACC6B65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context", "DevMentor.Context\DevMentor.Context.csproj", "{47D585B8-3460-41AF-83FF-90322ACC6B65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Data", "DevMentor.Data\DevMentor.Data.csproj", "{95BFE98C-DFF3-4926-8740-3AE80C119203}"
 EndProject
