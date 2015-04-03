@@ -1,0 +1,12 @@
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\obj\Debug\DevMentor.Data.csprojResolveAssemblyReference.cache
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\DevMentor.Data.dll.config
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\DevMentor.Data.dll
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\DevMentor.Data.pdb
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\DevMentor.Context.dll
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\EntityFramework.dll
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\DevMentor.Context.pdb
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\EntityFramework.xml
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\obj\Debug\DevMentor.Data.dll
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Data\obj\Debug\DevMentor.Data.pdb
