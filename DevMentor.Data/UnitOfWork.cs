@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DevMentor.Data
@@ -100,36 +101,42 @@ namespace DevMentor.Data
         //    }
         //}
 
-
+        int _counter = 0;
         public void Save()
         {
             try
             {
                 context.SaveChanges();
-
+                _counter = 0;
             }
             catch (Exception ex)
             {
-                var octx = context.ObjectContext;
-                if (octx != null)
+                if (_counter < 10)
                 {
-                    // Resolve the concurrency conflict by refreshing the 
-                    // object context before re-saving changes. 
-                    octx.Refresh(System.Data.Entity.Core.Objects.RefreshMode.ClientWins, context.Users);
-                    // Save changes.
-                    context.SaveChanges();
-
-                    Console.WriteLine("OptimisticConcurrencyException "
-                    + "handled and changes saved");
+                    _counter++;
+                    Thread.Sleep(1000 * _counter);
+                    Save();
                 }
                 else
                 {
-                    throw ex;
+                    var octx = context.ObjectContext;
+                    if (octx != null)
+                    {
+                        // Resolve the concurrency conflict by refreshing the 
+                        // object context before re-saving changes. 
+                        octx.Refresh(System.Data.Entity.Core.Objects.RefreshMode.ClientWins, context.Users);
+                        // Save changes.
+                        context.SaveChanges();
+
+                        Console.WriteLine("OptimisticConcurrencyException "
+                        + "handled and changes saved");
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
                 }
-
-
             }
-
         }
 
         private bool disposed = false;

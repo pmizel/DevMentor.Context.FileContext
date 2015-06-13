@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 
 namespace DevMentor.Data
 {
-    public partial class Context : DevMentor.Context.FileContext,IObjectContextAdapter
+    public partial class Context : DevMentor.Context.FileContext
+#if ENABLE_EF
+        , IObjectContextAdapter
+#endif
     {
         public Context()
             : base("name=ContentItemContext")
+        {
+        }
+        public Context(IStoreStrategy store):
+            base("name=ContentItemContext",store)
         {
         }
 
@@ -20,7 +27,14 @@ namespace DevMentor.Data
 
         public System.Data.Entity.Core.Objects.ObjectContext ObjectContext
         {
-            get { return null; }
+            get
+            {
+                var objectContext = (this as IObjectContextAdapter);
+                if (objectContext != null)
+                    return (this as IObjectContextAdapter).ObjectContext;
+                else
+                    return null;
+            }
         }
     }
 }

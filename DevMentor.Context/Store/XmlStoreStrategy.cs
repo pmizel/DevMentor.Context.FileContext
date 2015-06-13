@@ -8,27 +8,36 @@ using System.Web;
 
 namespace DevMentor.Context.Store
 {
-    public class XmlStoreStrategy:IStoreStrategy
+    public class XmlStoreStrategy : IStoreStrategy
     {
+
+        private Object thisLock = new Object();
+
         public object Load(string contents, Type type)
         {
-            return XmlHelper.DeserializeObject(contents, type);
+            lock (thisLock)
+            {
+                return XmlHelper.DeserializeObject(contents, type);
+            }
         }
 
         public string Save(object o, Type type)
         {
-            return XmlHelper.SerializeObject(o, type);
+            lock (thisLock)
+            {
+                return XmlHelper.SerializeObject(o, type);
+            }
         }
 
         public string GetFileName(Type T)
         {
             var name = T.Name;
-            string dir = HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string dir = AppDomain.CurrentDomain.BaseDirectory; //HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
 
-            if (System.Web.HttpContext.Current != null)
-            {
-                dir = Path.Combine(dir, @"App_Data\");
-            }
+            dir = Path.Combine(dir, @"App_Data\");
+
+            Directory.CreateDirectory(dir);
+
             return Path.Combine(dir, name + ".xml");
         }
     }

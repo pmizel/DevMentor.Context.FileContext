@@ -46,7 +46,10 @@ namespace DevMentor.Context
             var props = this.GetType().GetProperties();
             foreach (var prop in props)
             {
-                var gen_type = (prop.PropertyType).GenericTypeArguments[0];
+                var propType = prop.PropertyType;
+                if (propType.GenericTypeArguments.Length == 0)
+                    continue;
+                var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
@@ -91,7 +94,10 @@ namespace DevMentor.Context
             foreach (var prop in props)
             {
                 fileSetType = prop.PropertyType;
-                var gen_type = fileSetType.GenericTypeArguments[0];
+                var propType = prop.PropertyType;
+                if (propType.GenericTypeArguments.Length == 0)
+                    continue;
+                var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (gen_type == type)
                 {
@@ -136,7 +142,10 @@ namespace DevMentor.Context
             var props = this.GetType().GetProperties();
             foreach (var prop in props)
             {
-                var gen_type = (prop.PropertyType).GenericTypeArguments[0];
+                var propType = prop.PropertyType;
+                if (propType.GenericTypeArguments.Length == 0)
+                    continue;
+                var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (gen_type==typeof(T))
                 {
@@ -158,15 +167,21 @@ namespace DevMentor.Context
             var props = this.GetType().GetProperties();//.All(p => p.MemberType.GetType() == typeof(FileSet<Object>));
             foreach (var prop in props)
             {
-                var gen_type = (prop.PropertyType).GenericTypeArguments[0];
+                var propType = prop.PropertyType;
+                if (propType.GenericTypeArguments.Length == 0)
+                    continue;
+                var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
                     string filename = store.GetFileName(gen_type);
-                    object o = prop.GetValue(this);
-                    //string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
-                    string contents = store.Save(o, prop.PropertyType);
-                    File.WriteAllText(filename, contents);
+                    if (!string.IsNullOrEmpty(filename))
+                    {
+                        object o = prop.GetValue(this);
+                        //string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
+                        string contents = store.Save(o, prop.PropertyType);
+                        File.WriteAllText(filename, contents);
+                    }
                 }
             }
 

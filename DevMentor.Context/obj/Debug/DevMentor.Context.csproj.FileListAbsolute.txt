@@ -35,6 +35,6 @@ C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\bin\Debug\EntityFramew
 C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\bin\Debug\EntityFramework.SqlServer.dll
 C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\bin\Debug\EntityFramework.xml
 C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\bin\Debug\EntityFramework.SqlServer.xml
-C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\obj\Debug\DevMentor.Context.csprojResolveAssemblyReference.cache
 C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\obj\Debug\DevMentor.Context.dll
 C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\obj\Debug\DevMentor.Context.pdb
+C:\GitHub\DevMentor.Context.FileContext\DevMentor.Context\obj\Debug\DevMentor.Context.csprojResolveAssemblyReference.cache

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context", "DevMen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Data", "DevMentor.Data\DevMentor.Data.csproj", "{95BFE98C-DFF3-4926-8740-3AE80C119203}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoConsole", "DemoConsole\DemoConsole.csproj", "{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{95BFE98C-DFF3-4926-8740-3AE80C119203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95BFE98C-DFF3-4926-8740-3AE80C119203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95BFE98C-DFF3-4926-8740-3AE80C119203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
