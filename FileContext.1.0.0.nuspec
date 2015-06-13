@@ -12,7 +12,7 @@
         <developmentDependency>true</developmentDependency>
         <description>FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD) append to EntityFramework.</description>
         <summary>FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD) append to EntityFramework.</summary>
-        <tags>entityframework, filecontext, file db, database, filedb, no-sql</tags>
+        <tags>entityframework, filecontext, file db, database, filedb, no-sql, dbcontext, alternativ</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5">
                 <dependency id="EntityFramework" version="6.1.3" />
