@@ -3,9 +3,11 @@ DevMentor.Context.FileContext
 
 ![DevMentor Logo](http://devmentor.de/templates/devmentor/images/devmentor_logo.png "DevMentor")
 
+FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD). 
+
 modify EntityFramework DbContext to FileContext
 
-##Todo: 
+###Todo: in two steps to FileContext
   >1. Replace DbContext to FileContext
   >2. Replace DbSet to FileSet
 
@@ -94,3 +96,4 @@ public class ContentItemContext : FileContext
 }
 ```
 
+for UnitTests/IntegrationsTests use InMemoryStoreStrategy instance.
