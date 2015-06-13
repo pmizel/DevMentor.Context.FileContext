@@ -9,45 +9,46 @@ modify EntityFramework DbContext to FileContext
   >1. Replace DbContext to FileContext
   >2. Replace DbSet to FileSet
 
-##Example Code:
+###Example Code:
  
 ```C#
-	var unit = new UnitOfWork(new Context()); //new Context(new InMemoryStoreStrategy())
-	//INSERT
-	Console.WriteLine("INSERT PAUL");
-	unit.UserRepository.Insert(new User() { UserName="pmizel",FirstName="Paul", LastName="Mizel"});
-	Console.WriteLine("INSERT FABIAN");
-	unit.UserRepository.Insert(new User() { UserName = "fraetz", FirstName = "Fabian", LastName = "Raetz" });
-	unit.Save();
+var unit = new UnitOfWork(new Context()); //new Context(new InMemoryStoreStrategy())
+//INSERT
+Console.WriteLine("INSERT PAUL");
+unit.UserRepository.Insert(new User() { UserName="pmizel",FirstName="Paul", LastName="Mizel"});
+Console.WriteLine("INSERT FABIAN");
+unit.UserRepository.Insert(new User() { UserName = "fraetz", FirstName = "Fabian", LastName = "Raetz" });
+unit.Save();
 
-	Console.WriteLine("GET ALL");
-	var users=unit.UserRepository.Get(); //GET ALL
-	foreach (var user in users)
-	{
-		Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
-	}
+Console.WriteLine("GET ALL");
+var users=unit.UserRepository.Get(); //GET ALL
+foreach (var user in users)
+{
+	Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
+}
 
-	Console.WriteLine("GET PAUL");
-	users = unit.UserRepository.Get(f=>f.FirstName=="Paul"); //GET ALL
-	foreach (var user in users)
-	{
-		Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
-	}
+Console.WriteLine("GET PAUL");
+users = unit.UserRepository.Get(f=>f.FirstName=="Paul"); //GET ALL
+foreach (var user in users)
+{
+	Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
+}
 
-	//DELETE ALL
-	Console.WriteLine("DELETE ALL");
-	unit.UserRepository.Delete(unit.UserRepository.Get());
-	users = unit.UserRepository.Get();
-	foreach (var user in users)
-	{
-		Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
-	}
-	unit.Save();
+//DELETE ALL
+Console.WriteLine("DELETE ALL");
+unit.UserRepository.Delete(unit.UserRepository.Get());
+users = unit.UserRepository.Get();
+foreach (var user in users)
+{
+	Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
+}
+unit.Save();
 
-	Console.ReadKey();
+Console.ReadKey();
 ```
 
 ###Output:
+```sh
 INSERT PAUL
 INSERT FABIAN
 GET ALL
@@ -56,39 +57,40 @@ Fabian Raetz (fraetz)
 GET PAUL
 Paul Mizel (pmizel)
 DELETE ALL
+```
 
-##Example Context: 
+###Example Context: 
 
 ```C#
-    //public class ContentItemContext : DbContext
-    public class ContentItemContext : FileContext
-    {
-        public ContentItemContext()
-            : base("name=ContentItemContext")
-        {
-        }
+//public class ContentItemContext : DbContext
+public class ContentItemContext : FileContext
+{
+	public ContentItemContext()
+		: base("name=ContentItemContext")
+	{
+	}
 
-        public FileSet<ContentItem> ContentItems { get; set; }
-        //public DbSet<ContentItem> ContentItems { get; set; }
-    }
+	public FileSet<ContentItem> ContentItems { get; set; }
+	//public DbSet<ContentItem> ContentItems { get; set; }
+}
 ```
 
 
-##StoreStrategy
+###StoreStrategy
 
 ```C#
-    //public class ContentItemContext : DbContext
-    public class ContentItemContext : FileContext
-    {
-        public ContentItemContext()
-            : base(new JsonStoreStrategy()) 
-			// or DefaultStoreStrategy() => XmlStoreStrategy()
-			// or InMemoryStoreStrategy()
-        {
-        }
+//public class ContentItemContext : DbContext
+public class ContentItemContext : FileContext
+{
+	public ContentItemContext()
+		: base(new JsonStoreStrategy()) 
+		// or DefaultStoreStrategy() => XmlStoreStrategy()
+		// or InMemoryStoreStrategy()
+	{
+	}
 
-        public FileSet<ContentItem> ContentItems { get; set; }
-        //public DbSet<ContentItem> ContentItems { get; set; }
-    }
+	public FileSet<ContentItem> ContentItems { get; set; }
+	//public DbSet<ContentItem> ContentItems { get; set; }
+}
 ```
 
