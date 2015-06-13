@@ -3,15 +3,22 @@ DevMentor.Context.FileContext
 
 ![DevMentor Logo](http://devmentor.de/templates/devmentor/images/devmentor_logo.png "DevMentor")
 
-FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD). 
+FileContext is a data access layer (DAL) Framework for 
+rapid data driven application development (RDDAD). 
 
 ###benefits
-  > don't need a database
-  > provide your data in version-control
-  > fast synchronisation between environments (test -> dev)
-  > all serializable .NET types are allowed (DateTime.Min, TimeSpan > 24h,...)
-  > all linq query with own-methods as FilterExpression are allowed
-  > fast migration to Entity-Framework 6.*
+  > 1. don't need a database
+  > 2. rapid data-modeling, -modification
+  > 3. provide your data in version-control
+  > 4. rapid synchronisation between environments (test -> dev)
+  > 5. all serializable .NET types are allowed (DateTime.Min, TimeSpan > 24h,...)
+  > 6. all linq query with own-methods as FilterExpression are allowed
+  > 7. rapid migration to Entity-Framework 6.*
+  > 8. Generic repository pattern inside
+  > 9. Unit of work patten inside
+  >10. threadsafe for prototyping
+  
+hint: don't use for production.
 
 ###Todo: in two steps to FileContext
 modify EntityFramework DbContext to FileContext
