@@ -5,9 +5,16 @@ DevMentor.Context.FileContext
 
 FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD). 
 
-modify EntityFramework DbContext to FileContext
+###benefits
+  > don't need a database
+  > provide your data in version-control
+  > fast synchronisation between environments (test -> dev)
+  > all serializable .NET types are allowed (DateTime.Min, TimeSpan > 24h,...)
+  > all linq query with own-methods as FilterExpression are allowed
+  > fast migration to Entity-Framework 6.*
 
 ###Todo: in two steps to FileContext
+modify EntityFramework DbContext to FileContext
   >1. Replace DbContext to FileContext
   >2. Replace DbSet to FileSet
 
@@ -17,9 +24,13 @@ modify EntityFramework DbContext to FileContext
 var unit = new UnitOfWork(new Context()); //new Context(new InMemoryStoreStrategy())
 //INSERT
 Console.WriteLine("INSERT PAUL");
-unit.UserRepository.Insert(new User() { UserName="pmizel",FirstName="Paul", LastName="Mizel"});
+unit.UserRepository.Insert(new User() { UserName="pmizel",
+                                        FirstName="Paul", 
+										LastName="Mizel"});
 Console.WriteLine("INSERT FABIAN");
-unit.UserRepository.Insert(new User() { UserName = "fraetz", FirstName = "Fabian", LastName = "Raetz" });
+unit.UserRepository.Insert(new User() { UserName = "fraetz", 
+                                        FirstName = "Fabian", 
+										LastName = "Raetz" });
 unit.Save();
 
 Console.WriteLine("GET ALL");
