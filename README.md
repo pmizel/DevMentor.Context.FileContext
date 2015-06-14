@@ -21,7 +21,7 @@ rapid data driven application development (RDDAD).
 hint: don't use for production.
 
 ###nuget
-> install-package filecontext 
+> #### PM> install-package filecontext 
 
 ###Todo: in two steps to FileContext
 modify EntityFramework DbContext to FileContext
