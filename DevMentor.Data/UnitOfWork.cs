@@ -1,4 +1,6 @@
-﻿using DevMentor.Data.Entities;
+﻿using DevMentor.Context;
+using DevMentor.Context.Store;
+using DevMentor.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +13,26 @@ namespace DevMentor.Data
     public partial class UnitOfWork : IDisposable
     {
         private Context context;
+        //private DocumentContext documentContext;
         public UnitOfWork()
         {
             context = new Context();
         }
+
+        public UnitOfWork(IStoreStrategy store)
+        {
+            context = new Context(store);
+        }
+
         public UnitOfWork(Context context)
         {
             this.context = context;
         }
+
+        //public UnitOfWork(DocumentContext documentContext)
+        //{
+        //    this.documentContext = documentContext;
+        //}
 
         //public bool IsFileContext()
         //{
@@ -89,6 +103,17 @@ namespace DevMentor.Data
                 return userRepository;
             }
         }
+
+        //private GenericMongoRepository<User> userMongoRepository;
+        //public GenericMongoRepository<User> UserMongoRepository
+        //{
+        //    get
+        //    {
+        //        if (this.userMongoRepository == null)
+        //            this.userMongoRepository = new GenericMongoRepository<User>(documentContext);
+        //        return userMongoRepository;
+        //    }
+        //}
 
         //private GenericRepository<UserOptions> userOptionsRepository;
         //public GenericRepository<UserOptions> UserOptionsRepository

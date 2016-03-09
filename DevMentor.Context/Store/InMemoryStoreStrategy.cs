@@ -9,11 +9,16 @@ namespace DevMentor.Context.Store
     public class InMemoryStoreStrategy : IStoreStrategy
     {
         private Object thisLock = new Object();
+        public static Dictionary<string, string> data = new Dictionary<string, string>();
 
         public object Load(string contents, Type type)
         {
             lock (thisLock)
             {
+                if (data.Keys.Contains(type.Name))
+                {
+                    contents = data[type.Name];
+                }
                 return XmlHelper.DeserializeObject(contents, type);
             }
         }
@@ -22,13 +27,29 @@ namespace DevMentor.Context.Store
         {
             lock (thisLock)
             {
-                return XmlHelper.SerializeObject(o, type);
+                var contents = XmlHelper.SerializeObject(o, type);
+                if (data.Keys.Contains(type.Name))
+                {
+                    data.Remove(type.Name);
+                }
+                data.Add(type.Name, contents);
+                return contents;
             }
         }
 
         public string GetFileName(Type T)
         {
             return null;
+        }
+
+        public string ToDelete(object o, Type type)
+        {
+            return string.Empty;
+        }
+
+        public string ToUpdate(object o, Type type)
+        {
+            return string.Empty;
         }
     }
 }

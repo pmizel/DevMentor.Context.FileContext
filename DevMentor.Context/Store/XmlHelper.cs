@@ -53,7 +53,8 @@ namespace DevMentor.Context.Store
                 XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                 namespaces.Add(string.Empty, string.Empty);
 
-                XmlSerializer xs = new XmlSerializer(objectType);
+                //XmlSerializer xs = new XmlSerializer(objectType);
+                XmlSerializer xs = new XmlSerializerCache()[objectType];
                 XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
 
                 xs.Serialize(xmlTextWriter, pobject, namespaces);
@@ -78,7 +79,11 @@ namespace DevMentor.Context.Store
         /// <returns></returns>
         public static Object DeserializeObject(String pstring, Type objectType)
         {
-            XmlSerializer xs = new XmlSerializer(objectType);
+            if (string.IsNullOrEmpty(pstring))
+                return null;
+            //XmlSerializer xs = new XmlSerializer(objectType);
+            XmlSerializer xs = new XmlSerializerCache()[objectType];
+
             MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(pstring));
             XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
 

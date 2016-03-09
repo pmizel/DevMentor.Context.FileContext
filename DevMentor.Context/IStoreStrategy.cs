@@ -8,8 +8,16 @@ namespace DevMentor.Context
 {
     public interface IStoreStrategy
     {
+
+        string PreLoad(Type type);
+
         object Load(string contents, Type type);
         string Save(object o, Type type);
-        string GetFileName(Type T);
+
+        string ToDelete(object o, Type type);
+        string ToUpdate(object o, Type type);
+
+
+        string GetFileName(Type type);
     }
 }

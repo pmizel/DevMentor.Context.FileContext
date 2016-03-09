@@ -17,11 +17,13 @@ Rapid Data Driven Application Development (RDDAD).
   > 8. Generic repository pattern included
   > 9. Unit of work pattern included
   >10. Threadsafe for prototyping
+  >11. Different Store Strategies (Xml,Json,InMemory,MongoDb)
   
 hint: don't use for production.
 
 ###nuget
 > #### PM> install-package filecontext 
+> #### PM> install-package filecontext.mongodb 
 
 ###Todo: in two steps to FileContext
 modify EntityFramework DbContext to FileContext

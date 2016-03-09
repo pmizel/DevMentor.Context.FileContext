@@ -13,6 +13,27 @@ namespace DevMentor.Context.Store
 
         private Object thisLock = new Object();
 
+        public string ToDelete(object o, Type type)
+        {
+            return string.Empty;
+        }
+
+        public string ToUpdate(object o, Type type)
+        {
+            return string.Empty;
+        }
+
+        public string PreLoad(Type type)
+        {
+            lock (thisLock)
+            {
+                var fileName = this.GetFileName(type);
+                if (File.Exists(fileName))
+                    return File.ReadAllText(fileName);
+                return string.Empty;
+            }
+        }
+
         public object Load(string contents, Type type)
         {
             lock (thisLock)

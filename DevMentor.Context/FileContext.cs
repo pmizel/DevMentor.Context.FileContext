@@ -58,7 +58,8 @@ namespace DevMentor.Context
                     string filename = store.GetFileName(gen_type);
                     if (File.Exists(filename))
                     {
-                        string contents = File.ReadAllText(filename);
+                        //string contents = File.ReadAllText(filename);
+                        string contents = store.PreLoad(gen_type);
                         //object o = XmlHelper.DeserializeObject(contents, prop.PropertyType);
                         object o = store.Load(contents, prop.PropertyType);
                         if (o != null)
@@ -67,6 +68,41 @@ namespace DevMentor.Context
                             isInit = true;
                         }
                         //XmlHelper.SerializeObject(o, prop.PropertyType);
+                    }
+                    else if (string.IsNullOrEmpty(filename))
+                    {
+                        object o = store.Load(string.Empty, prop.PropertyType);
+                        if (o != null)
+                        {
+                            var list = o as IEnumerable;
+                            if (list != null)
+                            {
+                                var gtype = prop.PropertyType.GenericTypeArguments.FirstOrDefault();
+                                var instance = Activator.CreateInstance(prop.PropertyType);
+                                foreach (var item in list)
+                                {
+
+                                    var method = item
+                                    .GetType()
+                                    .GetMethod("MakeDirty");
+
+                                    if (method != null)
+                                        method.Invoke(item, new object[] { false });
+
+                                    prop.PropertyType
+                                        .GetMethod("Add")
+                                        .Invoke(instance, new object[] { item });
+                                }
+                                prop.SetValue(this, instance);
+                                isInit = true;
+                            }
+                            o = null;
+                        }
+                        if (o != null)
+                        {
+                            prop.SetValue(this, o);
+                            isInit = true;
+                        }
                     }
 
                     if (!isInit)
@@ -113,22 +149,22 @@ namespace DevMentor.Context
                     idPropInfo = type.GetProperty("Id");
                 if (idPropInfo == null)
                     throw new ArgumentException("Type " + name + " don't have any Id name");
-                var id=idPropInfo.GetValue(entity);
+                var id = idPropInfo.GetValue(entity);
                 object itemFromSet = null;
                 foreach (var item in o)
                 {
-                    var idcmp=idPropInfo.GetValue(item);
+                    var idcmp = idPropInfo.GetValue(item);
                     if (Comparer.Default.Compare(idcmp, id) == 0)
                     {
                         itemFromSet = item;
                         break;
                     }
                 }
-                if (itemFromSet != null)
-                {
-                    fileSetType.GetMethod("Remove").Invoke(o, new object[]{itemFromSet});
-                    fileSetType.GetMethod("Add").Invoke(o, new object[]{entity});
-                }
+                //if (itemFromSet != null)
+                //{
+                //    fileSetType.GetMethod("Remove").Invoke(o, new object[] { itemFromSet });
+                //    fileSetType.GetMethod("Add").Invoke(o, new object[] { entity });
+                //}
             }
 
             return _fileEntityEntry;
@@ -147,7 +183,7 @@ namespace DevMentor.Context
                     continue;
                 var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
-                if (gen_type==typeof(T))
+                if (gen_type == typeof(T))
                 {
                     o = prop.GetValue(this);
                     break;
@@ -182,16 +218,27 @@ namespace DevMentor.Context
                         string contents = store.Save(o, prop.PropertyType);
                         File.WriteAllText(filename, contents);
                     }
+                    else if (string.IsNullOrEmpty(filename))
+                    {
+                        object o = prop.GetValue(this);
+                        store.Save(o, prop.PropertyType);
+
+                        var deletedList=o.GetType().GetProperty("LocalDeleted").GetValue(o);
+                        store.ToDelete(deletedList, prop.PropertyType);
+
+                        var updatedList = o.GetType().GetProperty("LocalUpdated").GetValue(o);
+                        store.ToUpdate(updatedList, prop.PropertyType);
+                    }
                 }
             }
 
             return 0;
         }
 
-        public virtual int LoadChanges()
-        {
-            return SaveChanges();
-        }
+        //public virtual int LoadChanges()
+        //{
+        //    return SaveChanges();
+        //}
 
 
     }

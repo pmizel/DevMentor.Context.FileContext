@@ -10,6 +10,27 @@ namespace DevMentor.Context.Store
 {
     public class JsonStoreStrategy:IStoreStrategy
     {
+        private Object thisLock = new Object();
+
+        public string ToDelete(object o, Type type)
+        {
+            return string.Empty;
+        }
+
+        public string ToUpdate(object o, Type type)
+        {
+            return string.Empty;
+        }
+        public string PreLoad(Type type)
+        {
+            lock (thisLock)
+            {
+                var fileName = this.GetFileName(type);
+                if (File.Exists(fileName))
+                    return File.ReadAllText(fileName);
+                return string.Empty;
+            }
+        }
         public object Load(string contents, Type type)
         {
             return JsonHelper.DeserializeObject(contents, type);
@@ -23,12 +44,12 @@ namespace DevMentor.Context.Store
         public string GetFileName(Type T)
         {
             var name = T.Name;
-            string dir = HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string dir = AppDomain.CurrentDomain.BaseDirectory; //HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
 
-            if (System.Web.HttpContext.Current != null)
-            {
-                dir = Path.Combine(dir, @"App_Data\");
-            }
+            dir = Path.Combine(dir, @"App_Data\");
+
+            Directory.CreateDirectory(dir);
+
             return Path.Combine(dir, name + ".json");
         }
     }

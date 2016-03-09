@@ -8,8 +8,8 @@ using System.Web;
 
 namespace DevMentor.Context
 {
-    
-    public class FileSet<TEntity> : 
+
+    public class FileSet<TEntity> :
         System.Data.Entity.IDbSet<TEntity>,
         IQueryable<TEntity>, IEnumerable<TEntity>, IFileSet where TEntity : class
     {
@@ -17,7 +17,12 @@ namespace DevMentor.Context
         public FileSet()
         {
             Local = new ObservableCollection<TEntity>();
+            LocalDeleted = new ObservableCollection<TEntity>();
+            LocalUpdated = new ObservableCollection<TEntity>();
+            
         }
+        
+
         //[SuppressMessage("Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Intentionally just implicit to reduce API clutter.")]
         //public static implicit operator FileSet(FileSet<TEntity> entry);
 
@@ -34,7 +39,8 @@ namespace DevMentor.Context
         //     data through this property. For WPF bind to this property directly. For Windows
         //     Forms bind to the result of calling ToBindingList on this property
         public ObservableCollection<TEntity> Local { get; private set; }
-
+        public ObservableCollection<TEntity> LocalDeleted { get; private set; }
+        public ObservableCollection<TEntity> LocalUpdated { get; private set; }
 
         public IEnumerator<TEntity> GetEnumerator()
         {
@@ -68,15 +74,15 @@ namespace DevMentor.Context
 
             object id = ids[0];
 
-            var type=typeof(TEntity);
-            var name=type.Name;
+            var type = typeof(TEntity);
+            var name = type.Name;
             var idPropInfo = type.GetProperty(type.Name + "Id");
             if (idPropInfo == null)
                 idPropInfo = type.GetProperty("Id");
             if (idPropInfo == null)
                 throw new ArgumentException("Type " + name + " don't have any Id name");
 
-            return Local.FirstOrDefault(i => Comparer.Default.Compare(idPropInfo.GetValue(i),id)==0);
+            return Local.FirstOrDefault(i => Comparer.Default.Compare(idPropInfo.GetValue(i), id) == 0);
         }
 
 
@@ -94,11 +100,23 @@ namespace DevMentor.Context
         public TEntity Remove(TEntity item)
         {
             Local.Remove(item);
+            if (!LocalDeleted.Contains(item))
+            {
+                LocalDeleted.Add(item);
+            }
             return item;
         }
 
         public TEntity Attach(TEntity item)
         {
+            var method = item
+            .GetType()
+            .GetMethod("MakeDirty");
+
+            if (method != null)
+                method.Invoke(item, new object[] { true });
+
+            LocalUpdated.Add(item);
             return item;
         }
 

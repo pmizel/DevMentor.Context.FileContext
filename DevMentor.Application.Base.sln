@@ -1,11 +1,43 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context", "DevMentor.Context\DevMentor.Context.csproj", "{47D585B8-3460-41AF-83FF-90322ACC6B65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Data", "DevMentor.Data\DevMentor.Data.csproj", "{95BFE98C-DFF3-4926-8740-3AE80C119203}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoConsole", "DemoConsole\DemoConsole.csproj", "{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context.Test", "DevMentor.Context.Test\DevMentor.Context.Test.csproj", "{B9343DC8-1758-441D-8075-3E8FBE714AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMentor.Context.MongoDb", "DevMentor.Context.MongoDb\DevMentor.Context.MongoDb.csproj", "{5E53BFBD-A8B5-43FB-8EE5-CC7271B70A72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{796213F7-11ED-40A8-ADFF-89ABDB06CF28}"
+	ProjectSection(SolutionItems) = preProject
+		FileContext.MongoDb.nuspec = FileContext.MongoDb.nuspec
+		FileContext.nuspec = FileContext.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{04A0A5DD-119A-4776-9079-60ECF87F5352}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DCB05BFC-DBE2-46B8-965B-4103AB93FEB1}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\content\Data\Context.cs.ps = Nuget\content\Data\Context.cs.ps
+		Nuget\content\Data\GenericRepository.cs.ps = Nuget\content\Data\GenericRepository.cs.ps
+		Nuget\content\Data\UnitOfWork.cs.ps = Nuget\content\Data\UnitOfWork.cs.ps
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{5C7FEF66-3B29-4635-BC8D-2DA6BC74B96B}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\content\Data\Entities\Base.cs.ps = Nuget\content\Data\Entities\Base.cs.ps
+		Nuget\content\Data\Entities\User.cs.ps = Nuget\content\Data\Entities\User.cs.ps
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptography", "Cryptography", "{8A22A23A-6C94-4F8C-840F-5858EF47759C}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\content\Data\Cryptography\Hash.cs.ps = Nuget\content\Data\Cryptography\Hash.cs.ps
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,8 +57,22 @@ Global
 		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2B3B114-2B98-4F92-80C7-8667C93A8AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9343DC8-1758-441D-8075-3E8FBE714AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9343DC8-1758-441D-8075-3E8FBE714AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9343DC8-1758-441D-8075-3E8FBE714AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9343DC8-1758-441D-8075-3E8FBE714AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E53BFBD-A8B5-43FB-8EE5-CC7271B70A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E53BFBD-A8B5-43FB-8EE5-CC7271B70A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E53BFBD-A8B5-43FB-8EE5-CC7271B70A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E53BFBD-A8B5-43FB-8EE5-CC7271B70A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04A0A5DD-119A-4776-9079-60ECF87F5352} = {796213F7-11ED-40A8-ADFF-89ABDB06CF28}
+		{DCB05BFC-DBE2-46B8-965B-4103AB93FEB1} = {04A0A5DD-119A-4776-9079-60ECF87F5352}
+		{5C7FEF66-3B29-4635-BC8D-2DA6BC74B96B} = {DCB05BFC-DBE2-46B8-965B-4103AB93FEB1}
+		{8A22A23A-6C94-4F8C-840F-5858EF47759C} = {DCB05BFC-DBE2-46B8-965B-4103AB93FEB1}
 	EndGlobalSection
 EndGlobal

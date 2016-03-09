@@ -48,12 +48,6 @@ namespace DevMentor.Data
             }
         }
 
-        //public virtual IEnumerable<TEntity> Get(Guid accountId)
-        //{
-        //    IQueryable<TEntity> query = set;
-        //    TODO Filter by AccountId == OwnerId
-        //    return query.ToList();
-        //}
 
         public virtual IEnumerable<TEntity> Get()
         {
@@ -77,17 +71,7 @@ namespace DevMentor.Data
         {
             set.Add(entity);
         }
-        //public virtual void InsertOrUpdate(TEntity entity)
-        //{
-        //    if (set.Contains(entity))
-        //    {
-        //        Update(entity);
-        //    }
-        //    else
-        //    {
-        //        Insert(entity);
-        //    }
-        //}
+        
 
         public virtual void Delete(object id)
         {
