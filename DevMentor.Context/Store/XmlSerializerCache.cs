@@ -16,14 +16,15 @@ namespace DevMentor.Context.Store
             get
             {
                 XmlSerializer result = null;
-                if (XmlSerializerList.Keys.Contains(type.Name))
+                var key = type.GenericTypeArguments[0].Name;
+                if (XmlSerializerList.Keys.Contains(key))
                 {
-                    result = XmlSerializerList[type.Name];
+                    result = XmlSerializerList[key];
                 }
                 else
                 {
                     result = new XmlSerializer(type);
-                    XmlSerializerList.Add(type.Name, result);
+                    XmlSerializerList.Add(key, result);
                 }
                 return result;
             }

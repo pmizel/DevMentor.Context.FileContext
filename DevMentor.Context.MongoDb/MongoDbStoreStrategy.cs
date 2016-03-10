@@ -16,7 +16,12 @@ namespace DevMentor.Context.MongoDb
     public class MongoDbStoreStrategy : IStoreStrategy
     {
         MongoDB.Driver.IMongoDatabase database;
-        public MongoDbStoreStrategy(string databasename, MongoDatabaseSettings settings = null)
+        public MongoDbStoreStrategy(string databasename)
+        {
+            MongoDB.Driver.MongoClient client = new MongoDB.Driver.MongoClient();
+            database = client.GetDatabase(databasename);
+        }
+        public MongoDbStoreStrategy(string databasename, MongoDatabaseSettings settings)
         {
             MongoDB.Driver.MongoClient client = new MongoDB.Driver.MongoClient();
             database = client.GetDatabase(databasename, settings);
@@ -186,6 +191,10 @@ namespace DevMentor.Context.MongoDb
             return Expression.Lambda<Func<TClass, TProperty>>(equalsMethod, param);
         }
 
+        public string PreLoad(Type type)
+        {
+            return string.Empty;
+        }
     }
 
     //public static class ExpressionBuilder

@@ -13,7 +13,7 @@ namespace DevMentor.Context.Test
     [TestClass]
     public class MongoDbStoreTests
     {
-        IStoreStrategy store=new MongoDbStoreStrategy("testDb");
+        IStoreStrategy store=new MongoDbStoreStrategy("testDb",null);
         [TestMethod]
         public void MongoDbStoreInsertTest()
         {

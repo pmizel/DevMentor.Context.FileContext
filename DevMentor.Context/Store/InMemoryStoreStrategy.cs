@@ -51,5 +51,10 @@ namespace DevMentor.Context.Store
         {
             return string.Empty;
         }
+
+        public string PreLoad(Type type)
+        {
+            return string.Empty;
+        }
     }
 }
