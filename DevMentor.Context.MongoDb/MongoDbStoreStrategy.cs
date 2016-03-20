@@ -186,6 +186,7 @@ namespace DevMentor.Context.MongoDb
             var field = Expression.PropertyOrField(param, fieldName);
 
             Expression target = Expression.Constant(id);
+			// f=>f.[fieldName] == id
             Expression equalsMethod = Expression.Call(field, "Equals", null, target);
 
             return Expression.Lambda<Func<TClass, TProperty>>(equalsMethod, param);

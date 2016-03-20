@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>FileContext.MongoDb</id>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
         <title>FileContext.MongoDb</title>
         <authors>Paul Mizel</authors>
         <licenseUrl>https://github.com/pmizel/DevMentor.Context.FileContext</licenseUrl>
@@ -15,7 +15,7 @@
         <tags>entityframework, filecontext, file db, database, filedb, no-sql, mongodb, json, xml, inmemory, dbcontext, devmentor, brockhaus-ag</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5">
-                <dependency id="FileContext" version="1.0.3" />
+                <dependency id="FileContext" version="1.0.4" />
                 <dependency id="MongoDB.Driver" version="2.2.3" />
             </group>
         </dependencies>

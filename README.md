@@ -17,7 +17,8 @@ Rapid Data Driven Application Development (RDDAD).
   > 8. Generic repository pattern included
   > 9. Unit of work pattern included
   >10. Threadsafe for prototyping
-  >11. Different Store Strategies (Xml,Json,InMemory,MongoDb)
+  >11. Different store strategies (Xml,Json,InMemory,MongoDb,Cache)
+  >12. Caching as store wrapper
   
 hint: don't use for production.
 

@@ -67,6 +67,7 @@
     <Compile Include="FileSet.cs" />
     <Compile Include="Interception\IBeforeSave.cs" />
     <Compile Include="Interception\IBeforeLoad.cs" />
+    <Compile Include="Store\CacheStorageStrategy.cs" />
     <Compile Include="Store\XmlSerializerCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IStoreStrategy.cs" />
