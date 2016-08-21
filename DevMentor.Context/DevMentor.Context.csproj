@@ -69,6 +69,7 @@
     <Compile Include="FileManager\TxEnlistment.cs" />
     <Compile Include="FileManager\TxFileManager.cs" />
     <Compile Include="FileManager\WriteAllTextOperation.cs" />
+    <Compile Include="FileSetUsePrefixPathAttribute.cs" />
     <Compile Include="IFileSet.cs" />
     <Compile Include="FileContext.cs" />
     <Compile Include="FileEntityEntry.cs" />

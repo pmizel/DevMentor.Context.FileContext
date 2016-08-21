@@ -9,7 +9,7 @@ namespace DevMentor.Context
     public interface IStoreStrategy
     {
 
-        string PreLoad(Type type);
+        string PreLoad(Type type, string prefix = null);
 
         object Load(string contents, Type type);
         string Save(object o, Type type);
@@ -18,6 +18,6 @@ namespace DevMentor.Context
         string ToUpdate(object o, Type type);
 
 
-        string GetFileName(Type type);
+        string GetFileName(Type type, string prefix = null);
     }
 }

@@ -14,6 +14,7 @@ namespace DevMentor.Context.Test
     public class InMemoryStoreTests
     {
         IStoreStrategy store=new InMemoryStoreStrategy();
+
         [TestMethod]
         public void InMemoryStoreInsertTest()
         {

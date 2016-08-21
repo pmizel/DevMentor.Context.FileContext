@@ -104,6 +104,17 @@ namespace DevMentor.Data
             }
         }
 
+        private GenericRepository<Info> infoRepository;
+        public GenericRepository<Info> InfoRepository
+        {
+            get
+            {
+                if (this.infoRepository == null)
+                    this.infoRepository = new GenericRepository<Info>(context);
+                return infoRepository;
+            }
+        }
+
         //private GenericMongoRepository<User> userMongoRepository;
         //public GenericMongoRepository<User> UserMongoRepository
         //{

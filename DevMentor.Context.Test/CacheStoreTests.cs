@@ -15,6 +15,19 @@ namespace DevMentor.Context.Test
     {
         IStoreStrategy store=new CacheStorageStrategy(new XmlStoreStrategy());
 
+
+        [TestMethod]
+        public void CacheStoreAllTest()
+        {
+            CacheStoreInsertTest();
+            CacheStoreInsertTest();
+            CacheStoreUpdateTest();
+            CacheStoreUpdateTest();
+            CacheStoreDeleteTest();
+            CacheStoreDeleteTest();
+        }
+
+
         [TestMethod]
         public void CacheStoreInsertTest()
         {

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace DevMentor.Context.Store
 {
-    public class JsonStoreStrategy:IStoreStrategy
+    public class JsonStoreStrategy : IStoreStrategy
     {
         private Object thisLock = new Object();
 
@@ -21,11 +21,11 @@ namespace DevMentor.Context.Store
         {
             return string.Empty;
         }
-        public string PreLoad(Type type)
+        public string PreLoad(Type type, string prefix = null)
         {
             lock (thisLock)
             {
-                var fileName = this.GetFileName(type);
+                var fileName = this.GetFileName(type, prefix);
                 if (File.Exists(fileName))
                     return File.ReadAllText(fileName);
                 return string.Empty;
@@ -41,12 +41,12 @@ namespace DevMentor.Context.Store
             return JsonHelper.SerializeObject(o, type);
         }
 
-        public string GetFileName(Type T)
+        public string GetFileName(Type T, string prefix = null)
         {
             var name = T.Name;
             string dir = AppDomain.CurrentDomain.BaseDirectory; //HttpContext.Current.Server.MapPath("~");//System.Reflection.Assembly.GetExecutingAssembly().Location;
 
-            dir = Path.Combine(dir, @"App_Data\");
+            dir = Path.Combine(dir, @"App_Data\", prefix ?? "");
 
             Directory.CreateDirectory(dir);
 

@@ -18,18 +18,18 @@ namespace DevMentor.Context.Store
             this.baseStore = baseStore;
 
         }
-        public string GetFileName(Type type)
+        public string GetFileName(Type type, string prefix = null)
         {
-            return baseStore.GetFileName(type);
+            return baseStore.GetFileName(type, prefix);
         }
 
-        public string PreLoad(Type type)
+        public string PreLoad(Type type, string prefix = null)
         {
             if (_concurrent.Keys.Contains(type.Name))
             {
                 return string.Empty;
             }
-            return baseStore.PreLoad(type);
+            return baseStore.PreLoad(type, prefix);
         }
 
         public object Load(string contents, Type type)

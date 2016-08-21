@@ -49,6 +49,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Cryptography\Hash.cs" />
     <Compile Include="Entities\Base.cs" />
+    <Compile Include="Entities\Info.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

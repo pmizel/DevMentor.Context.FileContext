@@ -19,15 +19,18 @@
             </group>
         </dependencies>
     </metadata>
+    
     <files>
-        <!--<file src="content\Controller\_._" target="content\Controller\_._" />-->
+        <!--
         <file src="Nuget\content\Data\Cryptography\Hash.cs.ps" target="content\Data\Cryptography\Hash.cs.pp" />
         <file src="Nuget\content\Data\Entities\Base.cs.ps" target="content\Data\Entities\Base.cs.pp" />
         <file src="Nuget\content\Data\Entities\User.cs.ps" target="content\Data\Entities\User.cs.pp" />
         <file src="Nuget\content\Data\Context.cs.ps" target="content\Data\Context.cs.pp" />
         <file src="Nuget\content\Data\GenericRepository.cs.ps" target="content\Data\GenericRepository.cs.pp" />
         <file src="Nuget\content\Data\UnitOfWork.cs.ps" target="content\Data\UnitOfWork.cs.pp" />
+        -->
         <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net45\DevMentor.Context.dll" />
         <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net451\DevMentor.Context.dll" />
     </files>
+    
 </package>

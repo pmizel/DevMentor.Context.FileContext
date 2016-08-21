@@ -23,7 +23,7 @@ namespace DevMentor.Context.Store
                 }
                 else
                 {
-                    result = new XmlSerializer(type);
+                    result = new XmlSerializer(type); 
                     XmlSerializerList.Add(key, result);
                 }
                 return result;

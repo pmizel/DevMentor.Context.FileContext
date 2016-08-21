@@ -76,7 +76,10 @@ namespace DevMentor.Data
         public virtual void Delete(object id)
         {
             TEntity entityToDelete = set.Find(id);
-            Delete(entityToDelete);
+            if (entityToDelete != null)
+            {
+                Delete(entityToDelete);
+            }
         }
 
         public virtual void Delete(IEnumerable<TEntity> entitysToDelete)

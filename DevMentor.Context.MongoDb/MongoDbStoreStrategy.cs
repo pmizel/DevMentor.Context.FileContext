@@ -26,7 +26,7 @@ namespace DevMentor.Context.MongoDb
             MongoDB.Driver.MongoClient client = new MongoDB.Driver.MongoClient();
             database = client.GetDatabase(databasename, settings);
         }
-        public string GetFileName(Type T)
+        public string GetFileName(Type T, string prefix = null)
         {
             return string.Empty;
         }
@@ -186,13 +186,13 @@ namespace DevMentor.Context.MongoDb
             var field = Expression.PropertyOrField(param, fieldName);
 
             Expression target = Expression.Constant(id);
-			// f=>f.[fieldName] == id
+            // f=>f.[fieldName] == id
             Expression equalsMethod = Expression.Call(field, "Equals", null, target);
 
             return Expression.Lambda<Func<TClass, TProperty>>(equalsMethod, param);
         }
 
-        public string PreLoad(Type type)
+        public string PreLoad(Type type, string prefix = null)
         {
             return string.Empty;
         }

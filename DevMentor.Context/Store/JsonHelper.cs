@@ -83,6 +83,9 @@ namespace DevMentor.Context.Store
         /// <returns></returns>
         public static Object DeserializeObject(String pstring, Type objectType)
         {
+            if (string.IsNullOrEmpty(pstring))
+                return Activator.CreateInstance(objectType);
+
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
             settings.DateTimeFormat = new System.Runtime.Serialization.DateTimeFormat("o");
 

@@ -15,6 +15,10 @@ namespace DevMentor.Context
     {
         IStoreStrategy store;
 
+        public virtual IStoreStrategy Store { get { return store; } set { store = value; } }
+
+        public virtual string PrefixPath { get; }
+
         public FileContext()
         {
             Init();
@@ -51,17 +55,20 @@ namespace DevMentor.Context
                 var propType = prop.PropertyType;
                 if (propType.GenericTypeArguments.Length == 0)
                     continue;
+                var attribute = prop.GetCustomAttribute<FileSetUsePrefixPathAttribute>(true);
                 var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
                     bool isInit = false;
                     //load
-                    string filename = store.GetFileName(gen_type);
+                    var prefix = attribute == null ? null : this.PrefixPath;
+                    string filename = store.GetFileName(gen_type, prefix);
+
                     if (File.Exists(filename))
                     {
                         //string contents = File.ReadAllText(filename);
-                        string contents = store.PreLoad(gen_type);
+                        string contents = store.PreLoad(gen_type, prefix);
                         //object o = XmlHelper.DeserializeObject(contents, prop.PropertyType);
                         object o = store.Load(contents, prop.PropertyType);
                         if (o != null)
@@ -208,11 +215,13 @@ namespace DevMentor.Context
                 var propType = prop.PropertyType;
                 if (propType.GenericTypeArguments.Length == 0)
                     continue;
+                var attribute = prop.GetCustomAttribute<FileSetUsePrefixPathAttribute>();
                 var gen_type = propType.GenericTypeArguments[0];
                 var ret_type = gen_type.GetType();
                 if (ret_type.IsInstanceOfType(typeof(IFileSet)))
                 {
-                    string filename = store.GetFileName(gen_type);
+                    var prefix = attribute == null ? null : this.PrefixPath;
+                    string filename = store.GetFileName(gen_type, prefix);
                     if (!string.IsNullOrEmpty(filename))
                     {
                         object o = prop.GetValue(this);
@@ -230,7 +239,7 @@ namespace DevMentor.Context
                         object o = prop.GetValue(this);
                         store.Save(o, prop.PropertyType);
 
-                        var deletedList=o.GetType().GetProperty("LocalDeleted").GetValue(o);
+                        var deletedList = o.GetType().GetProperty("LocalDeleted").GetValue(o);
                         store.ToDelete(deletedList, prop.PropertyType);
 
                         var updatedList = o.GetType().GetProperty("LocalUpdated").GetValue(o);

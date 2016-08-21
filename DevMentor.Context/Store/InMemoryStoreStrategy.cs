@@ -19,7 +19,8 @@ namespace DevMentor.Context.Store
                 {
                     contents = data[type.Name];
                 }
-                return XmlHelper.DeserializeObject(contents, type);
+                return JsonHelper.DeserializeObject(contents, type);
+                //return XmlHelper.DeserializeObject(contents, type);
             }
         }
 
@@ -27,7 +28,8 @@ namespace DevMentor.Context.Store
         {
             lock (thisLock)
             {
-                var contents = XmlHelper.SerializeObject(o, type);
+                //var contents = XmlHelper.SerializeObject(o, type);
+                var contents = JsonHelper.SerializeObject(o, type);
                 if (data.Keys.Contains(type.Name))
                 {
                     data.Remove(type.Name);
@@ -37,7 +39,7 @@ namespace DevMentor.Context.Store
             }
         }
 
-        public string GetFileName(Type T)
+        public string GetFileName(Type T, string prefix = null)
         {
             return null;
         }
@@ -52,7 +54,7 @@ namespace DevMentor.Context.Store
             return string.Empty;
         }
 
-        public string PreLoad(Type type)
+        public string PreLoad(Type type, string prefix = null)
         {
             return string.Empty;
         }

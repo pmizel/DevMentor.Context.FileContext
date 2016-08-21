@@ -23,7 +23,18 @@ namespace DevMentor.Data
         {
         }
 
+        public override string PrefixPath
+        {
+            get
+            {
+                return "DynamicSubPath";
+            }
+         }
+
         public FileSet<User> Users { get; set; }
+
+        [FileSetUsePrefixPath]
+        public FileSet<Info> Infos { get; set; }
 
         public System.Data.Entity.Core.Objects.ObjectContext ObjectContext
         {
