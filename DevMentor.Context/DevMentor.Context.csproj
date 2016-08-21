@@ -52,6 +52,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,6 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="FileManager\FileUtils.cs" />
+    <Compile Include="FileManager\IFileManager.cs" />
+    <Compile Include="FileManager\ITransactionsOperation.cs" />
+    <Compile Include="FileManager\SingleFileOperation.cs" />
+    <Compile Include="FileManager\TxEnlistment.cs" />
+    <Compile Include="FileManager\TxFileManager.cs" />
+    <Compile Include="FileManager\WriteAllTextOperation.cs" />
     <Compile Include="IFileSet.cs" />
     <Compile Include="FileContext.cs" />
     <Compile Include="FileEntityEntry.cs" />
