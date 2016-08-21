@@ -19,6 +19,7 @@ Rapid Data Driven Application Development (RDDAD).
   >10. Threadsafe for prototyping
   >11. Different store strategies (Xml,Json,InMemory,MongoDb,Cache)
   >12. Caching as store wrapper
+  >13. Support transactions
   
 hint: don't use for production.
 

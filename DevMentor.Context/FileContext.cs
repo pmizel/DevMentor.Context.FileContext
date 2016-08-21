@@ -1,3 +1,4 @@
+using DevMentor.Context.FileManager;
 using DevMentor.Context.Store;
 using System;
 using System.Collections;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 using System.Web;
 
 namespace DevMentor.Context
@@ -216,7 +218,12 @@ namespace DevMentor.Context
                         object o = prop.GetValue(this);
                         //string contents = XmlHelper.SerializeObject(o, prop.PropertyType);
                         string contents = store.Save(o, prop.PropertyType);
-                        File.WriteAllText(filename, contents);
+                        TxFileManager fileMgr = new TxFileManager();
+                        using (TransactionScope scope1 = new TransactionScope())
+                        {
+                            fileMgr.WriteAllText(filename, contents);
+                            scope1.Complete();
+                        }
                     }
                     else if (string.IsNullOrEmpty(filename))
                     {
