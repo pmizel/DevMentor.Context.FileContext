@@ -20,6 +20,7 @@ Rapid Data Driven Application Development (RDDAD).
   >11. Different store strategies (Xml,Json,InMemory,MongoDb,Cache)
   >12. Caching as store wrapper
   >13. Support transactions
+  >14. Support disconnected entities
   
 hint: don't use for production.
 
