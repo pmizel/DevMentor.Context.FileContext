@@ -1,28 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-    <metadata>
-        <id>FileContext.MongoDb</id>
-        <version>1.0.4</version>
-        <title>FileContext.MongoDb</title>
-        <authors>Paul Mizel</authors>
-        <licenseUrl>https://github.com/pmizel/DevMentor.Context.FileContext</licenseUrl>
-        <projectUrl>https://github.com/pmizel/DevMentor.Context.FileContext</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/pmizel/DevMentor.Context.FileContext/master/logo128x128.png</iconUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <developmentDependency>true</developmentDependency>
-        <description>FileContext.MongoDb is a data access layer (DAL) Framework for rapid data driven application development (RDDAD)  (MongoDb Store Provider).</description>
-        <summary>FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD) append to EntityFramework.</summary>
-        <tags>entityframework, filecontext, file db, database, filedb, no-sql, mongodb, json, xml, inmemory, dbcontext, devmentor, brockhaus-ag</tags>
-        <dependencies>
-            <group targetFramework=".NETFramework4.5">
-                <dependency id="FileContext" version="1.0.4" />
-                <dependency id="MongoDB.Driver" version="2.2.3" />
-            </group>
-        </dependencies>
-    </metadata>
-    <files>
-        <!--<file src="content\Controller\_._" target="content\Controller\_._" />-->
-        <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net45\DevMentor.Context.MongoDb.dll" />
-        <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net451\DevMentor.Context.MongoDb.dll" />
-    </files>
+  <metadata>
+    <id>FileContext.MongoDb</id>
+    <version>1.0.5</version>
+    <title>FileContext.MongoDb</title>
+    <authors>Paul Mizel</authors>
+    <licenseUrl>https://github.com/pmizel/DevMentor.Context.FileContext</licenseUrl>
+    <projectUrl>https://github.com/pmizel/DevMentor.Context.FileContext</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/pmizel/DevMentor.Context.FileContext/master/logo128x128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+    <description>FileContext.MongoDb is a data access layer (DAL) Framework for rapid data driven application development (RDDAD)  (MongoDb Store Provider).</description>
+    <summary>FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD) append to EntityFramework.</summary>
+    <tags>entityframework, filecontext, file db, database, filedb, no-sql, mongodb, json, xml, inmemory, dbcontext, devmentor, brockhaus-ag</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="FileContext" version="1.0.5" />
+        <dependency id="MongoDB.Driver" version="2.2.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!--
+        <file src="content\Controller\_._" target="content\Controller\_._" />
+        -->
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net45\DevMentor.Context.MongoDb.dll" />
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net451\DevMentor.Context.MongoDb.dll" />
+
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net46\DevMentor.Context.MongoDb.dll" />
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net461\DevMentor.Context.MongoDb.dll" />
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\net462\DevMentor.Context.MongoDb.dll" />
+    <file src="DevMentor.Context.MongoDb\bin\Debug\DevMentor.Context.MongoDb.dll" target="lib\netcore\DevMentor.Context.MongoDb.dll" />
+  </files>
 </package>

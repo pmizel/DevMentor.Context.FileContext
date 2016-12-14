@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace DevMentor.Context
@@ -19,9 +20,9 @@ namespace DevMentor.Context
             Local = new ObservableCollection<TEntity>();
             LocalDeleted = new ObservableCollection<TEntity>();
             LocalUpdated = new ObservableCollection<TEntity>();
-            
+
         }
-        
+
 
         //[SuppressMessage("Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Intentionally just implicit to reduce API clutter.")]
         //public static implicit operator FileSet(FileSet<TEntity> entry);
@@ -72,7 +73,7 @@ namespace DevMentor.Context
             if (ids.Length != 1)
                 throw new ArgumentException("FileSet support only one id as parameter");
 
-            object id = ids[0];
+            object id = ids[0]; //looks like error ;-)
 
             var type = typeof(TEntity);
             var name = type.Name;
@@ -117,7 +118,77 @@ namespace DevMentor.Context
                 method.Invoke(item, new object[] { true });
 
             LocalUpdated.Add(item);
+
+            object id = GetId(item);
+
+            var firstOrDefault = Local.FirstOrDefault(i => Comparer.Default.Compare(GetId(i), id) == 0);
+            if (firstOrDefault != null)
+            { //map => update
+                CopyObjectData(item, firstOrDefault);
+            }
+            else {
+                //insert
+                Local.Add(item);
+            }
+
+
             return item;
+        }
+
+        private object GetId(TEntity item)
+        {
+            var type = typeof(TEntity);
+            var name = type.Name;
+            var idPropInfo = type.GetProperty(type.Name + "Id");
+            if (idPropInfo == null)
+                idPropInfo = type.GetProperty("Id");
+            if (idPropInfo == null)
+                throw new ArgumentException("Type " + name + " don't have any Id name");
+
+            return idPropInfo.GetValue(item);
+        }
+
+        private void CopyObjectData(object source, object target)
+        {
+            string excludedProperties = null;
+            BindingFlags memberAccess = BindingFlags.Instance | BindingFlags.Public;
+            string[] excluded = null;
+            if (!string.IsNullOrEmpty(excludedProperties))
+                excluded = excludedProperties.Split(new char[1] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            MemberInfo[] miT = target.GetType().GetMembers(memberAccess);
+            foreach (MemberInfo Field in miT)
+            {
+                string name = Field.Name;
+
+                // Skip over any property exceptions
+                if (!string.IsNullOrEmpty(excludedProperties) &&
+                    excluded.Contains(name))
+                    continue;
+
+                if (Field.MemberType == MemberTypes.Field)
+                {
+                    FieldInfo SourceField = source.GetType().GetField(name);
+                    if (SourceField == null)
+                        continue;
+
+                    object SourceValue = SourceField.GetValue(source);
+                    ((FieldInfo)Field).SetValue(target, SourceValue);
+                }
+                else if (Field.MemberType == MemberTypes.Property)
+                {
+                    PropertyInfo piTarget = Field as PropertyInfo;
+                    PropertyInfo SourceField = source.GetType().GetProperty(name, memberAccess);
+                    if (SourceField == null)
+                        continue;
+
+                    if (piTarget.CanWrite && SourceField.CanRead)
+                    {
+                        object SourceValue = SourceField.GetValue(source, null);
+                        piTarget.SetValue(target, SourceValue, null);
+                    }
+                }
+            }
         }
 
         public TEntity Create()

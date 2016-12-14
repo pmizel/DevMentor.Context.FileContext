@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>FileContext</id>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <title>FileContext</title>
         <authors>Paul Mizel</authors>
         <licenseUrl>https://github.com/pmizel/DevMentor.Context.FileContext</licenseUrl>
@@ -31,6 +31,10 @@
         -->
         <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net45\DevMentor.Context.dll" />
         <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net451\DevMentor.Context.dll" />
-    </files>
-    
+        
+        <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net46\DevMentor.Context.dll" />
+        <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net461\DevMentor.Context.dll" />
+	      <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\net462\DevMentor.Context.dll" />
+        <file src="DevMentor.Context\bin\Debug\DevMentor.Context.dll" target="lib\netcore\DevMentor.Context.dll" />
+   </files>
 </package>

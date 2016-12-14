@@ -13,14 +13,14 @@ namespace DevMentor.Context.Test
     [TestClass]
     public class XmlStoreTests
     {
-        IStoreStrategy store=new XmlStoreStrategy();
+        IStoreStrategy store = new XmlStoreStrategy();
         [TestMethod]
         public void XmlStoreInsertTest()
         {
-            var user=new Data.Entities.User
+            var user = new Data.Entities.User
             {
                 LastName = "Insert",
-                FirstName = "FirstName "+DateTime.Now.ToString()
+                FirstName = "FirstName " + DateTime.Now.ToString()
             };
 
 
@@ -29,7 +29,7 @@ namespace DevMentor.Context.Test
             unit.Save();
 
             unit = new UnitOfWork(store);
-            var datauser=unit.UserRepository.GetByID(user.Id);
+            var datauser = unit.UserRepository.GetByID(user.Id);
 
             Assert.IsNotNull(datauser);
             Assert.AreEqual(datauser.FirstName, user.FirstName);
@@ -59,7 +59,7 @@ namespace DevMentor.Context.Test
             var datauser = unit.UserRepository.GetByID(user.Id);
 
             Assert.IsNull(datauser);
-            
+
         }
 
 
@@ -68,7 +68,7 @@ namespace DevMentor.Context.Test
         {
             var user = new Data.Entities.User
             {
-                LastName ="Update",
+                LastName = "Update",
                 FirstName = "FirstName " + DateTime.Now.ToString()
             };
 
@@ -95,7 +95,39 @@ namespace DevMentor.Context.Test
             unit.UserRepository.Delete(user);
             unit.Save();
         }
+
+        [TestMethod]
+        public void XmlStoreUpdateDisconnectedTest()
+        {
+            var expected = "UpdatedLastname";
+            var id = Guid.NewGuid();
+            var user = new Data.Entities.User
+            {
+                Id = id,
+                LastName = "New",
+                FirstName = "FirstName " + DateTime.Now.ToString()
+            };
+
+            UnitOfWork unit = new UnitOfWork(store);
+            unit.UserRepository.Insert(user);
+            unit.Save();
+
+            user = new Data.Entities.User
+            {
+                Id = id,
+                LastName = expected,
+                FirstName = "FirstName " + DateTime.Now.ToString()
+            };
+
+            unit.UserRepository.Update(user);
+            unit.Save();
+
+            user = unit.UserRepository.GetByID(id);
+
+            Assert.IsNotNull(user);
+            Assert.AreEqual(user.LastName, expected);
+        }
     }
 
-    
+
 }
