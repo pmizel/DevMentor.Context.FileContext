@@ -14,7 +14,7 @@
     <summary>FileContext is a data access layer (DAL) Framework for rapid data driven application development (RDDAD) append to EntityFramework.</summary>
     <tags>entityframework, filecontext, file db, database, filedb, no-sql, mongodb, json, xml, inmemory, dbcontext, devmentor, brockhaus-ag</tags>
     <dependencies>
-      <group targetFramework=".NETFramework4.6.1">
+      <group targetFramework=".NETFramework4.6">
         <dependency id="FileContext" version="1.0.5" />
         <dependency id="MongoDB.Driver" version="2.2.3" />
       </group>
