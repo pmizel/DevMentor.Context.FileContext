@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace DevMentor.Context.Store
 {
     public class XmlSerializerCache
     {
-        static Dictionary<string, XmlSerializer> XmlSerializerList = new Dictionary<string, XmlSerializer>();
+                    
+        static ConcurrentDictionary<string, XmlSerializer> XmlSerializerList = new ConcurrentDictionary<string, XmlSerializer>();
 
         public XmlSerializer this[Type type]
         {
