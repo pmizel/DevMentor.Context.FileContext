@@ -10,28 +10,37 @@ namespace DevMentor.Context.Store
 {
     public class XmlSerializerCache
     {
-                    
-        static ConcurrentDictionary<string, XmlSerializer> XmlSerializerList = new ConcurrentDictionary<string, XmlSerializer>();
+
+        static Dictionary<string, XmlSerializer> XmlSerializerList = new Dictionary<string, XmlSerializer>();
+        static object lockObject = new object();
 
         public XmlSerializer this[Type type]
         {
             get
             {
-                XmlSerializer result = null;
-                var key = type.GenericTypeArguments[0].Name;
-                if (XmlSerializerList.Keys.Contains(key))
+                lock (lockObject)
                 {
-                    result = XmlSerializerList[key];
+                    XmlSerializer result = null;
+                    var key = type.GenericTypeArguments[0].Name;
+                    if (XmlSerializerList.Keys.Contains(key))
+                    {
+                        result = XmlSerializerList[key];
+                    }
+                    else
+                    {
+                        lock(lockObject)
+                        {
+                            result = new XmlSerializer(type);
+                            if (!XmlSerializerList.Keys.Contains(key))
+                            {
+                                XmlSerializerList.Add(key, result);
+                            }
+                        }
+                    }
+                    return result;
                 }
-                else
-                {
-                    result = new XmlSerializer(type); 
-                    XmlSerializerList.Add(key, result);
-                }
-                return result;
             }
         }
-
-
     }
+
 }
