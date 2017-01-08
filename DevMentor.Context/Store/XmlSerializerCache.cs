@@ -10,7 +10,6 @@ namespace DevMentor.Context.Store
 {
     public class XmlSerializerCache
     {
-
         static Dictionary<string, XmlSerializer> XmlSerializerList = new Dictionary<string, XmlSerializer>();
         static object lockObject = new object();
 
